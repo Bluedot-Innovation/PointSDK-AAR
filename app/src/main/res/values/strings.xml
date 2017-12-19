@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">PointSDK-AAR-Example</string>
+    <string name="foreground_notification_title">Location Access</string>
+    <string name="foreground_notification_text">This app is utilizing the location to trigger alerts in both background and foreground modes when you visit your favourite locations.</string>
 </resources>
