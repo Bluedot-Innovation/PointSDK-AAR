@@ -80,6 +80,7 @@ public class MainActivity extends AppCompatActivity implements
     public void onBlueDotPointServiceStartedSuccess() {
         // This is called when BlueDotPointService started successfully
         // Your app logic can start from here
+        mServiceManager.subscribeForApplicationNotification(this);
     }
 
     @Override
