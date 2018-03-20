@@ -10,8 +10,8 @@ You can find [documentation](http://docs.bluedotinnovation.com/display/DEVDOC10/
 
 ## Copyright and license
 
-Created by Bluedot Innovation in 2017.
-Copyright © 2017 Bluedot Innovation. All rights reserved.
+Created by Bluedot Innovation in 2018.
+Copyright © 2018 Bluedot Innovation. All rights reserved.
 
 By dowloading or using the Bluedot Point SDK for Android, You agree to the Bluedot [Terms and Conditions](http://www.bluedotinnovation.com/html/downloads/pdfs/terms-and-conditions-bluedot-070814.pdf)
 and [Privacy Policy](http://www.bluedotinnovation.com/html/downloads/pdfs/privacy-policy-bluedot-170815.pdf)
