@@ -24,3 +24,4 @@
 -dontwarn com.fasterxml.jackson.databind.**
 -dontwarn com.fasterxml.jackson.annotation.**
 -keep class org.codehaus.** { *; }
+-dontwarn org.json.**
