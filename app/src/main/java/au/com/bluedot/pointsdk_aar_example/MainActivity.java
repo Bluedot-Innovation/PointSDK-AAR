@@ -2,10 +2,17 @@ package au.com.bluedot.pointsdk_aar_example;
 
 import android.Manifest;
 import android.app.AlertDialog;
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
+import android.os.Build;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
@@ -22,6 +29,8 @@ import au.com.bluedot.point.net.engine.LocationInfo;
 import au.com.bluedot.point.net.engine.ServiceManager;
 import au.com.bluedot.point.net.engine.ZoneInfo;
 
+import static android.app.Notification.PRIORITY_MAX;
+
 public class MainActivity extends AppCompatActivity implements
         ServiceStatusListener,
         ApplicationNotificationListener {
@@ -29,9 +38,7 @@ public class MainActivity extends AppCompatActivity implements
     private ServiceManager mServiceManager;
 
     //TODO: Configure these values
-    private String mEmail = "<email>";
     private String mApiKey = "<api key>";
-    private String mPackageName = "<package name>";
     private boolean mRestartMode = false;
 
     @Override
@@ -48,9 +55,7 @@ public class MainActivity extends AppCompatActivity implements
         // Android O handling - Set the foreground Service Notification which will fire only if running on Android O and above
         Intent actionIntent = new Intent(this, MainActivity.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, actionIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-        mServiceManager.setForegroundServiceNotification(R.drawable.ic_launcher_foreground,
-                getString(R.string.foreground_notification_title),
-                getString(R.string.foreground_notification_text), pendingIntent, false);
+        mServiceManager.setForegroundServiceNotification(createNotification(getString(R.string.foreground_notification_title), getString(R.string.foreground_notification_text), true, Notification.CATEGORY_SERVICE), false);
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED || ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
@@ -62,7 +67,49 @@ public class MainActivity extends AppCompatActivity implements
             // for ActivityCompat#requestPermissions for more details.
             return;
         }
-        mServiceManager.sendAuthenticationRequest(mPackageName, mApiKey, mEmail, this, mRestartMode);
+        mServiceManager.sendAuthenticationRequest(mApiKey, this, mRestartMode);
+    }
+
+
+    private Notification createNotification(String title, String content, boolean onGoing, String category) {
+        Intent actionIntent = new Intent(getApplicationContext(), MainActivity.class);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, actionIntent, PendingIntent.FLAG_UPDATE_CURRENT );
+
+        String channelId;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            channelId = "Bluedot" + getString(R.string.app_name);
+            String channelName = "Bluedot Service"  + getString(R.string.app_name);
+            NotificationManager notificationManager = (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
+            if (notificationManager.getNotificationChannel(channelId) == null) {
+                NotificationChannel notificationChannel = new NotificationChannel(channelId, channelName, NotificationManager.IMPORTANCE_LOW);
+                notificationChannel.enableLights(false);
+                notificationChannel.setLightColor(Color.RED);
+                notificationChannel.enableVibration(false);
+                notificationManager.createNotificationChannel(notificationChannel);
+            }
+
+            Notification.Builder notification = new Notification.Builder(getApplicationContext(), channelId)
+                    .setContentText(title)
+                    .setContentTitle(content)
+                    .setOngoing(onGoing)
+                    .setCategory(category)
+                    .setSmallIcon(R.mipmap.ic_launcher)
+                    .setContentIntent(pendingIntent);
+
+            return notification.build();
+        } else {
+
+            NotificationCompat.Builder notification = new NotificationCompat.Builder(getApplicationContext())
+                    .setContentText(title)
+                    .setContentTitle(content)
+                    .setOngoing(onGoing)
+                    .setCategory(category)
+                    .setPriority(PRIORITY_MAX)
+                    .setSmallIcon(R.mipmap.ic_launcher)
+                    .setContentIntent(pendingIntent);
+
+            return notification.build();
+        }
     }
 
     @Override
