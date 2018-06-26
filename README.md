@@ -6,7 +6,7 @@ Bluedot PointSDK Android Archive (AAR)
 
 ## Documentation
 
-You can find [documentation](http://docs.bluedotinnovation.com/display/DEVDOC10/iOS+SDK) for the SDK and [release notes](http://docs.bluedotinnovation.com/display/DEVDOC10/Version+Release+Notes) on http://docs.bluedotinnovation.com.
+You can find [documentation](https://docs.bluedot.io/android-sdk/) for the SDK and [release notes](http://docs.bluedot.io/display/DEVDOC10/Version+Release+Notes) on http://docs.bluedot.io.
 
 ## Copyright and license
 
