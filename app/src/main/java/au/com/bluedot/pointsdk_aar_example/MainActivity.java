@@ -89,8 +89,9 @@ public class MainActivity extends AppCompatActivity implements
             }
 
             Notification.Builder notification = new Notification.Builder(getApplicationContext(), channelId)
-                    .setContentText(title)
-                    .setContentTitle(content)
+                    .setContentTitle(title)
+                    .setContentText(content)
+                    .setStyle(new Notification.BigTextStyle().bigText(content))
                     .setOngoing(onGoing)
                     .setCategory(category)
                     .setSmallIcon(R.mipmap.ic_launcher)
@@ -100,8 +101,9 @@ public class MainActivity extends AppCompatActivity implements
         } else {
 
             NotificationCompat.Builder notification = new NotificationCompat.Builder(getApplicationContext())
-                    .setContentText(title)
-                    .setContentTitle(content)
+                    .setContentTitle(title)
+                    .setContentText(content)
+                    .setStyle(new NotificationCompat.BigTextStyle().bigText(content))
                     .setOngoing(onGoing)
                     .setCategory(category)
                     .setPriority(PRIORITY_MAX)
