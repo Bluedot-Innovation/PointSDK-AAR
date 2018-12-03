@@ -58,6 +58,13 @@
                 <action android:name="android.intent.action.LOCKED_BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
+        <receiver
+            android:name="au.com.bluedot.point.net.engine.LocationUpdatesReceiver"
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="au.com.bluedot.point.net.engine.LocationUpdatesReceiver.ACTION_PROCESS_UPDATES" />
+            </intent-filter>
+        </receiver>
         <receiver android:name="au.com.bluedot.point.net.engine.StartJobIntentServiceReceiver" />
         <receiver android:name="au.com.bluedot.point.net.engine.BDJobBroadcastReceiver" />
     </application>
