@@ -1,23 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="au.com.bluedot.pointsdk_aar">
 
     <!-- General Point SDK functionality -->
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.WAKE_LOCK" />
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
-
-    <!-- Required for Beacons integration -->
-    <uses-permission android:name="android.permission.BLUETOOTH" />
-    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
-
-    <!-- Required for SessionLogger -->
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <application>
         <service
@@ -27,17 +14,17 @@
             android:name="au.com.bluedot.point.net.engine.BlueDotPointJobService"
             android:exported="false"
             android:permission="android.permission.BIND_JOB_SERVICE" />
-        <service
-            android:name="au.com.bluedot.point.net.engine.BlueDotPointService"
-            android:exported="false" />
+
+        <receiver android:name="au.com.bluedot.point.net.engine.BluedotLocationBroadcastReceiver" />
+
         <service
             android:name="au.com.bluedot.point.net.engine.DataIntentService"
             android:exported="false"
             android:permission="android.permission.BIND_JOB_SERVICE" />
         <service
             android:name="au.com.bluedot.point.net.engine.DataJobIntentService"
-            android:permission="android.permission.BIND_JOB_SERVICE"
-            android:exported="false" />
+            android:exported="false"
+            android:permission="android.permission.BIND_JOB_SERVICE" />
         <service
             android:name="au.com.bluedot.point.net.engine.DataJobScheduler"
             android:exported="false"
@@ -71,6 +58,25 @@
         </receiver>
         <receiver android:name="au.com.bluedot.point.net.engine.StartJobIntentServiceReceiver" />
         <receiver android:name="au.com.bluedot.point.net.engine.BDJobBroadcastReceiver" />
-        <receiver android:name="au.com.bluedot.point.net.engine.BluedotLocationBroadcastReceiver"/>
+
+        <service
+            android:name="au.com.bluedot.point.net.engine.BlueDotPointService"
+            android:exported="false"
+            android:foregroundServiceType="location" />
     </application>
+
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+
+    <!-- Required for Beacons integration -->
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+
+    <!-- Required for SessionLogger -->
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+
+    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
+
 </manifest>
