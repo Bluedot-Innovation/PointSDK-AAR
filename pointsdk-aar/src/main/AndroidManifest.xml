@@ -14,9 +14,10 @@
             android:name="au.com.bluedot.point.net.engine.BlueDotPointJobService"
             android:exported="false"
             android:permission="android.permission.BIND_JOB_SERVICE" />
-
-        <receiver android:name="au.com.bluedot.point.net.engine.BluedotLocationBroadcastReceiver" />
-
+        <service
+            android:name="au.com.bluedot.point.net.engine.BlueDotPointService"
+            android:exported="false"
+            android:foregroundServiceType="location" />
         <service
             android:name="au.com.bluedot.point.net.engine.DataIntentService"
             android:exported="false"
@@ -58,11 +59,7 @@
         </receiver>
         <receiver android:name="au.com.bluedot.point.net.engine.StartJobIntentServiceReceiver" />
         <receiver android:name="au.com.bluedot.point.net.engine.BDJobBroadcastReceiver" />
-
-        <service
-            android:name="au.com.bluedot.point.net.engine.BlueDotPointService"
-            android:exported="false"
-            android:foregroundServiceType="location" />
+        <receiver android:name="au.com.bluedot.point.net.engine.BluedotLocationBroadcastReceiver" />
     </application>
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
